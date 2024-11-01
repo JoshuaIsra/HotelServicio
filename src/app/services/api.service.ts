@@ -10,12 +10,25 @@ export class ApiService {
   private _http = inject(HttpClient);
   constructor(  ) { } 
   getHabitaciones(){
-
-    return this._http.get(APIURL + 'habitacion/all');
+    return this._http.get<Habitaciones[]>(APIURL + 'habitacion/all');
   }
 
-  getHabitacion(id:number){
-    return this._http.get(APIURL + 'habitacion/'+id);
+  getHabitacion(id: number): Observable<any> {
+    return this._http.get<any>(`${APIURL}habitacion/${id}`);
   }
+
+  createHabitacion(habitacion: Habitaciones){
+    return this._http.post<Habitaciones>(APIURL + 'habitacion/new', habitacion);
+  }
+
+  updateHabitacion(id: number, habitacion: Habitaciones) {
+    return this._http.put<Habitaciones>(`${APIURL}habitacion/update/${id}`, habitacion); 
+  }
+    
+
+  deleteHabitacion(id:any){
+    const habitacionId = parseInt(id, 10); // convierte el id a número
+    return this._http.delete<void>(`${APIURL}habitacion/delete/${id}`);
+}
 
 }

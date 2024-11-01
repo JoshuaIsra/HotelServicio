@@ -1,0 +1,54 @@
+
+<h2 style="color: aliceblue;"> 
+  @if(habit){
+    EDITAR
+  }
+  @else {
+    CREAR
+  }
+  REGISTRO DE HABITACION
+
+</h2>   
+
+<div class="row row-cols-3 jsutify-content-center " style="color: aliceblue;">
+    @if (form) {
+      <form [formGroup]="form" (ngSubmit)="save()">
+        <div class="form-group">
+          <label for="precio_noche">Precio por noche:</label>
+          <input type="number" id="precio_noche" formControlName="precio_noche" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label for="estado">Estado:</label>
+          <select id="estado" formControlName="estado" class="form-control" required>
+            <option [value]="true">Disponible</option>
+            <option [value]="false">No Disponible</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="capacidad_personas">Capacidad de Personas:</label>
+          <input type="number" id="capacidad_personas" formControlName="capacidad_personas" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label for="servicios">Servicios:</label>
+          <input type="text" id="servicios" formControlName="servicios" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label for="numero_camas">Número de Camas:</label>
+          <input type="number" id="numero_camas" formControlName="numero_camas" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label for="tipo_cama">Tipo de Cama:</label>
+          <input type="text" id="tipo_cama" formControlName="tipo_cama" class="form-control" required>
+        </div>
+        <button type="submit" class="btn btn-primary">
+          
+          @if(habit){
+            Actualizar
+          }
+          @else {
+            Crear
+          }
+           Habitación</button>
+      </form>
+    }
+</div>
