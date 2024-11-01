@@ -1,0 +1,58 @@
+<button (click)="toggleTable()">Mostrar-/Ocultar</button>
+
+<div class="text-end">
+    <button (click)="goToNew()" button btn-success>
+        Nueva Habitacion
+    </button>
+</div>
+
+
+<!-- <table style="color: aliceblue; border-spacing: 10px; width: 100%;">  -->
+<div [class.hidden]="!mostarTabla">
+<h2 style="color: azure;"> Registro de Habitaciones</h2>
+<table class="table table-hover" > 
+    <thead style ="color: aliceblue;">
+        <tr>
+        <th style="padding: 20px;"> Id </th>
+        <th style="padding: 20px;"> Numero de Camas</th>
+        <th style="padding: 20px;"> Precio por noche</th>
+        <th style="padding: 20px;">Estado</th>
+        <th style="padding: 20px;"> Capacidad de personas</th>
+        <th style="padding: 20px;"> tipo cama</th>
+        <th style="padding: 20px;"> Servicios</th>
+        <th>
+
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+        @for (hab of habitaciones; track hab.id) {
+            <tr>
+            <th style="padding: 10px;">{{hab.id}}</th>
+            <th style="padding: 10px;">{{hab.numero_camas}}</th>
+            <th style="padding: 10px;">{{hab.precio_noche}}</th>
+            <th style="padding: 10px;">{{hab.estado}}</th>
+            <th style="padding: 10px;">{{hab.capacidad_personas}}</th>
+            <th style="padding: 10px;">{{hab.tipo_cama}}</th>
+            <th style="padding: 10px;">
+                {{hab.servicios.wifi ? 'Wifi,' : 'Sin Wifi'}}
+                {{hab.servicios.tv ? 'Con TV,' : ''}}
+
+            </th>
+            <td class="text-end"></td>
+                <div class="btn-group">
+                    <button (click)="goToEdit(hab.id)" class="btn btn-primary" > Editar </button> <!-- funcion para redireccionar a la pagina de edicion -->
+                    
+                    <button (click)="deleteHabitacion(hab.id)" class="btn btn-danger"  > Eliminar </button>
+                </div>
+        
+        </tr>
+        }
+    </tbody>
+</table>
+</div>
+
+
+
+
+

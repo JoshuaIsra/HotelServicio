@@ -1,10 +1,16 @@
 export interface Habitaciones{
     id: number;
     precio_noche: number;
-    esatdo: boolean;
+    estado: boolean;
     capacidad_personas: number;
-    servicios: string[];
+    servicios: servicios;
     numero_camas: number;
     tipo_cama: string;
     
+}
+
+export interface servicios {
+    wifi: boolean;
+    tv: boolean;
+    calefaccion: boolean;
 }
