@@ -1,0 +1,38 @@
+<br>
+<div class="text-end">
+    <button class="btn btn-success" (click)="goToNew()">Nueva Reserva</button>
+</div>
+<table class="table table-striped table-hover align-middle">
+    <thead class="table-dark">
+        <tr>
+            <th scope="col">ID Reserva</th>
+            <th scope="col">ID Cliente</th>
+            <th scope="col">ID Habitación</th>
+            <th scope="col">Fecha de Reserva</th>
+            <th scope="col">Fecha Inicio</th>
+            <th scope="col">Fecha Fin</th>
+            <th scope="col">Estado</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (reser of Reservas; track reser.id) {
+            <tr>
+                <td>{{reser.id}}</td>
+                <td>{{reser.cliente_id}}</td>
+                <td>{{reser.habitacion_id}}</td>
+                <td>{{reser.fecha_reserva}}</td>
+                <td>{{reser.fecha_inicio}}</td>
+                <td>{{reser.fecha_fin}}</td>
+                <td>{{reser.estadoReserva}}</td>
+                <td>
+                <div class="btn-group" role="group">
+                    <button (click)="goToEdit(reser.id)" class="btn btn-primary btn-sm">Editar</button>
+                    <button (click)="deleteReserva(reser.id)" class="btn btn-danger btn-sm">Eliminar</button>
+
+                </div>
+            </td>
+            </tr>
+        }
+
+    </tbody>
+<table>

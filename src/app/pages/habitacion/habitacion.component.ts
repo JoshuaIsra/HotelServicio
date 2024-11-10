@@ -52,7 +52,9 @@ export class HabitacionComponent implements OnInit{
     if (servicios.aire_acondicionado) {
       serviciosArray.push('Aire Acondicionado');
     }
-    // Agrega más servicios según sea necesario
+    if (servicios.tv) {
+      serviciosArray.push('TV');
+    }
     return serviciosArray.join(', ');
   }
 

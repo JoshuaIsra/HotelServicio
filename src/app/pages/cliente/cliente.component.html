@@ -1,4 +1,41 @@
-<div>
 
-    <form action=""></form>
+<br>
+<div class="text-end">
+    <button class="btn btn-success" (click)="goToNew()">Nuevo Cliente</button>
 </div>
+<table class="table table-striped table-hover align-middle">
+    <thead class="table-dark">
+      <tr>
+        <th scope="col">ID Persona</th>
+        <th scope="col">ID Cliente</th>
+        <th scope="col">Estado</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">Apellido</th>
+        <th scope="col">Correo</th>
+        <th scope="col">Dirección</th>
+        <th scope="col">Teléfono</th>
+        <th scope="col">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for(cliente of clientes; track cliente.id) {
+        <tr> 
+          <td>{{cliente.persona.id}}</td>
+          <td>{{cliente.id}}</td>
+          <td>{{cliente.estado ==1?'Activo' :'Inactivo'}}</td>
+          <td>{{cliente.persona.nombre}}</td>
+          <td>{{cliente.persona.apellido}}</td>
+          <td>{{cliente.persona.correo}}</td>
+          <td>{{cliente.persona.direccion}}</td>
+          <td>{{cliente.persona.telefono}}</td>
+          <td>
+            <div class="btn-group" role="group">
+              <button (click)="goToEdiit(cliente.id)"  class="btn btn-primary btn-sm">Editar</button>
+              <button (click)="deleteCliente(cliente.id)"  class="btn btn-danger btn-sm">Eliminar</button>
+            </div>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+  

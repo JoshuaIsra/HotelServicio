@@ -1,0 +1,45 @@
+<h2 style="color: aliceblue;">
+    {{ clien ? 'EDITAR' : 'CREAR' }} Cliente
+  </h2>
+  <div class="row row-cols-3 justify-content-center" style="color: aliceblue;">
+    <form [formGroup]="form" (ngSubmit)="save()">
+      
+      <div class="form-group">
+        <label for="estado" class="form-label">Estado</label>
+        <select formControlName="estado" class="form-select" id="estado">
+          <option value="0">Inactivo</option>
+          <option value="1">Activo</option>
+        </select>
+      </div>
+  
+      <div class="form-group">
+        <label for="nombre" class="form-label">Nombre</label>
+        <input type="text" formControlName="nombre" class="form-control" id="nombre">
+      </div>
+      
+      <div class="form-group">
+        <label for="apellido" class="form-label">Apellido</label>
+        <input type="text" formControlName="apellido" class="form-control" id="apellido">
+      </div>
+      
+      <div class="form-group">
+        <label for="email" class="form-label">Correo</label>
+        <input type="email" formControlName="email" class="form-control" id="email">
+      </div>
+      
+      <div class="form-group">
+        <label for="telefono" class="form-label">Teléfono</label>
+        <input type="tel" formControlName="telefono" class="form-control" id="telefono">
+      </div>
+      
+      <div class="form-group">
+        <label for="direccion" class="form-label">Dirección</label>
+        <input type="text" formControlName="direccion" class="form-control" id="direccion">
+      </div>
+      
+      <button type="submit" class="btn btn-primary">
+        {{ clien ? 'Actualizar Cliente' : 'Crear Cliente' }}
+      </button>
+    </form>
+  </div>
+  

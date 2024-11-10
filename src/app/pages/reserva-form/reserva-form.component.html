@@ -1,0 +1,41 @@
+<h2 class="text-center" style="color: antiquewhite;">
+    {{ reser ? 'EDITAR' : 'CREAR' }} Reserva
+</h2>
+<div class="row row-cols-3 justify-content-center" style="color: aliceblue;">
+    <form [formGroup]="form" (ngSubmit)="save()">
+        <div class="form-group">
+            <label for="fecha_reserva" class="form-label">Fecha de reserva</label>
+            <input type="date" formControlName="fecha_reserva" class="form-control" id="fecha_reserva">
+        </div>
+        <div class="form-group">
+            <label for="fecha_inicio" class="form-label">Fecha de Inicio</label>
+            <input type="date" formControlName="fecha_inicio" class="form-control" id="fecha_inicio">
+        </div>
+        <div class="form-group">
+            <label for="fecha_fin" class="form-label">Fecha de fin</label>
+            <input type="date" formControlName="fecha_fin" class="form-control" id="fecha_fin">
+        </div>
+        <div class="form-group">
+            <label for="cliente_id" class="form-label">Cliente ID</label>
+            <input type="number" formControlName="cliente_id" class="form-control" id="cliente_id">
+        </div>
+        <div class="form-group">
+            <label for="habitacion_id" class="form-label">Habitacion ID</label>
+            <input type="number" formControlName="habitacion_id" class="form-control" id="habitacion_id">
+        </div>
+        <div class="form-group">
+            <label for="estadoReserva" class="form-label">Estado de La Reserva</label>
+            <select formControlName="estadoReserva" class="form-select" id="estadoReserva">
+                <option value="Pendiente">Pendiente</option>
+                <option value="Confirmada">Confirmada</option>
+                <option value="En espera">En espera</option>
+                <option value="Cancelada">Cancelada</option>
+                <option value="Completada">Completada</option>
+            </select>
+        </div>
+        <br>
+        <button type="submit" class="btn btn-success">
+            {{ reser ? 'Actualizar Cliente' : 'Crear Cliente' }}
+        </button>
+    </form>
+</div>
