@@ -16,13 +16,18 @@
             <input type="date" formControlName="fecha_fin" class="form-control" id="fecha_fin">
         </div>
         <div class="form-group">
-            <label for="cliente_id" class="form-label">Cliente ID</label>
-            <input type="number" formControlName="cliente_id" class="form-control" id="cliente_id">
+            <label for="cliente_id" class="form-label">Cliente</label>
+            <select formControlName="cliente_id" class="form-select" id="cliente_id">
+                <option *ngFor="let cliente of clientes" [value]="cliente.id">{{ cliente.persona.nombre }}</option>
+            </select>
         </div>
         <div class="form-group">
-            <label for="habitacion_id" class="form-label">Habitacion ID</label>
-            <input type="number" formControlName="habitacion_id" class="form-control" id="habitacion_id">
+            <label for="habitacion_id" class="form-label">Habitacion</label>
+            <select formControlName="habitacion_id" class="form-select" id="habitacion_id">
+                <option *ngFor="let habitacion of habitaciones" [value]="habitacion.id">{{ habitacion.id }}</option>
+            </select>
         </div>
+        
         <div class="form-group">
             <label for="estadoReserva" class="form-label">Estado de La Reserva</label>
             <select formControlName="estadoReserva" class="form-select" id="estadoReserva">

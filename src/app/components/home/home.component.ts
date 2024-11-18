@@ -1,6 +1,7 @@
 import { Component, inject, Input, OnInit } from '@angular/core';
 import { Habitaciones } from '../../Model/Habitaciones';
 import { ApiService } from '../../services/api.service';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { jsDocComment } from '@angular/compiler';
 
 @Component({

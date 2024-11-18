@@ -8,7 +8,8 @@
 
 
 <!-- <table style="color: aliceblue; border-spacing: 10px; width: 100%;">  -->
-<div [class.hidden]="!mostarTabla">
+<!-- <div [class.hidden]="!mostarTabla"> -->
+<div>
 <h2 style="color: azure;"> Registro de Habitaciones</h2>
 <table class="table table-hover" > 
     <thead style ="color: aliceblue;">
@@ -39,12 +40,15 @@
                 {{hab.servicios.tv ? 'Con TV,' : ''}}
 
             </th>
-            <td class="text-end"></td>
+            <td>
                 <div class="btn-group">
                     <button (click)="goToEdit(hab.id)" class="btn btn-primary" > Editar </button> <!-- funcion para redireccionar a la pagina de edicion -->
                     
                     <button (click)="deleteHabitacion(hab.id)" class="btn btn-danger"  > Eliminar </button>
                 </div>
+            </td>
+            <td class="text-end"></td>
+                
         
         </tr>
         }

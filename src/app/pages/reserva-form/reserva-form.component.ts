@@ -2,11 +2,14 @@ import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApirerservasService } from '../../services/apirerservas.service';
+import { ApiClienteService } from '../../services/api-cliente.service';
+import { ApiService } from '../../services/api.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-reserva-form',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule,CommonModule],
   templateUrl: './reserva-form.component.html',
   styleUrls: ['./reserva-form.component.css']
 })
@@ -15,7 +18,11 @@ export class ReservaFormComponent implements OnInit {
   private router = inject(Router);
   private route = inject(ActivatedRoute);
   private reservaService = inject(ApirerservasService);
+  private clienteService = inject(ApiClienteService);
+  private habitacionService = inject(ApiService);
 
+  clientes: any[] = [];
+  habitaciones: any[] = [];
   form: FormGroup;
   reser: any = null;
 
@@ -31,6 +38,16 @@ export class ReservaFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.clienteService.getClientes().subscribe(clientes => {
+      console.log('Clientes:', clientes);
+      this.clientes = clientes;
+    });
+  
+    this.habitacionService.getHabitaciones().subscribe(habitaciones => {
+      console.log('Habitaciones:', habitaciones);
+      this.habitaciones = habitaciones;
+    });
+    
     const id = this.route.snapshot.paramMap.get('id');
     if (id && !isNaN(+id)) {
       this.reservaService.getReserva(+id).subscribe(

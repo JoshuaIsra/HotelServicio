@@ -1,3 +1,55 @@
 .texto-blanco {
     color: white;
 }
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    background-color: #ffffff;
+    padding: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    max-width: 900px;
+    margin: 20px auto;
+}
+
+.input-group{
+    flex: 1;
+    margin-right: 10px;
+}
+
+.input-group,
+.input-group select{
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.button-group button{
+    padding: 10px 15px;
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
+    background-color: #d32f2f;
+    border: none;
+    border-radius: 5px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.button-group button:hover{
+    background-color: #b71c1c;
+}
+
+.button-group .secondary{
+    background-color: #555;
+}
+
+.button-group .secondary:hover{
+    background-color: #333;
+}

@@ -1,0 +1,41 @@
+<h2 style="color: aliceblue;">
+    {{ fact ? 'EDITAR' : 'CREAR' }} Factura
+</h2>
+
+<div class="row row-cols-3 justify-content-center" style="color: aliceblue;">
+    <form [formGroup]="form" (ngSubmit)="save()">
+        <div class="form-group">
+            <label for="id reserva" class="form-label">id Reserva</label>
+            <select formControlName="reserva_id" class="form-select" id="reserva_id">
+                <!-- <option *ngFor="let reserva of reservas" [value]="reserva.id">{{ reserva.id }}</option> -->
+                <option *ngFor="let reserva of reservas" [value]="reservas.id">{{ reservas.id }}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="fechaEmision" class="form-label"> Fecha de Emision</label>
+            <input type="date" formControlName="fechaEmision" class="form-control" id="fechaEmision"> 
+        </div>
+        <div class="form-group">
+            <label for="fechaPago" class="form-label"> Monto Total</label>
+            <input type="number" formControlName="montoTotal" class="form-control" id="montoTotal">
+        </div>
+        <div class="form-group">
+            <label for="montoTotal" class="form-label"> Metodo de Pago</label>
+            <select formControlName="metodoPago" class="form-label" id="metodoPago">
+                <option value="Efectivo">Efectivo</option>
+                <option value="Targeta de Credito">Targeta de Credito</option>
+                <option value="Targeta de Debito">Targeta de Debito</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="montoTotal" class="form-label"> Estado de Pago</label>
+            <input type="text" formControlName="estadoPago" class="form-control" id="estadoPago">
+        </div>
+        <br>
+        <div>
+            <button type="submit" class="btn btn-primary">
+                {{fact ? 'Actualizar Factura' : 'Crear Factura'}}
+            </button>
+        </div>
+    </form>
+</div>
