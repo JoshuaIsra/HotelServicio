@@ -1,0 +1,63 @@
+<h2 style="color: aliceblue;">
+    {{personal ? 'EDITAR' : 'CREAR'}} Personal
+</h2>
+
+<div class="row row-cols-3 justify-content-center" style="color: aliceblue;">
+<form [formGroup]="form" (ngSubmit)="save()">
+    <div class="form-group">
+        <label for="nombre" class="form-label">Nombre</label>
+        <input type="text" formControlName="nombre" class="form-control" id="nombre">
+    </div>
+    
+    <div class="form-group">
+        <label for="apellido" class="form-label">Apellido</label>
+        <input type="text" formControlName="apellido" class="form-control" id="apellido">
+    </div>
+    
+    <div class="form-group">
+        <label for="email" class="form-label">Correo</label>
+        <input type="email" formControlName="email" class="form-control" id="email">
+    </div>
+
+    <div class="form-group">
+        <label for="telefono" class="form-label">Teléfono</label>
+        <input type="tel" formControlName="telefono" class="form-control" id="telefono">
+    </div>
+    
+    <div class="form-group">
+        <label for="direccion" class="form-label">Dirección</label>
+        <input type="text" formControlName="direccion" class="form-control" id="direccion">
+    </div>
+
+    <div class="form-group">
+        <label for="rol" class="form-label">Rol</label>
+        <input type="text" formControlName="rol" class="form-group" id="rol">
+    </div>
+    
+    <div class="form-group">
+        <label for="turno" class="form-label">Turno</label>
+        <input type="text" formControlName="turno" class="form-control" id="turno">
+    </div>
+
+    <div class="form-group">
+        <label for="salario" class="form-label">Salario</label>
+        <input type="text" formControlName="salario"  class="form-group" id="salario">
+    </div>
+    <div class="form-group">
+        <label for="type_personal" class="form-label">Tipo de personal</label>
+        <select formControlName="type_personal" class="form-select" id="type_personal">
+            <option value="Limpieza">Limpieza</option>
+            <option value="Recepcionista.">Recepcionista.</option>
+            <option value="Director general.">Director general.</option>
+            <option value="Camarero.">Camarero.</option>
+            <option value="Personal de mantenimiento.">Personal de mantenimiento.</option>
+
+        </select>
+
+    </div>
+    <button type="submit" class="btn btn-primary">
+        {{personal ? 'Actualizar Personal' : 'Crear Personal'}}
+    </button>
+</form>
+
+</div>

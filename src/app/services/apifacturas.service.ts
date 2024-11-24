@@ -21,7 +21,7 @@ export class ApifacturasService {
   }
 
   updateFactura(id: number, factura: any) {
-    return this._http.put<Factura>(`${APIURL}factura/update/${id}`, factura);
+    return this._http.put(`${APIURL}factura/update/${id}`, factura);
   }
   deleteFactura(id: any){
     const facturaId = parseInt(id, 10);

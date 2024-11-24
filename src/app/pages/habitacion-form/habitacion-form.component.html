@@ -30,8 +30,16 @@
         </div>
         <div class="form-group">
           <label for="servicios">Servicios:</label>
-          <input type="text" id="servicios" formControlName="servicios" class="form-control" required>
+          
+          <select id="servicios" formControlName="servicios" class="form-control" required>
+            <option value="wifi">WIFI</option>
+            <option value="tv">TV</option>
+            <option value="aire acondicionado">Aire Acondicionado</option>
+          
+
+          </select>
         </div>
+        
         <div class="form-group">
           <label for="numero_camas">Número de Camas:</label>
           <input type="number" id="numero_camas" formControlName="numero_camas" class="form-control" required>
@@ -39,6 +47,14 @@
         <div class="form-group">
           <label for="tipo_cama">Tipo de Cama:</label>
           <input type="text" id="tipo_cama" formControlName="tipo_cama" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for = "tipo_habitacion">Tipo De Habitacion:</label>
+            <select id="tipo_habitacion" formControlName="tipo_habitacion"class="form-control" required> 
+              <option value="Indiviual">Indiviual</option>
+              <option value="Doble">Doble</option>            
+              <option value="Suite">Suite</option>
+            </select>
         </div>
         <button type="submit" class="btn btn-primary">
           

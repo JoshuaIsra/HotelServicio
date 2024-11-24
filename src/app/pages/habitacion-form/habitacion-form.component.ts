@@ -42,7 +42,8 @@ export class HabitacionFormComponent implements OnInit {
           capacidad_personas: [habitacion.capacidad_personas,Validators.required],
           servicios: [habitacion.servicios,Validators.required],
           numero_camas: [habitacion.numero_camas,Validators.required],
-          tipo_cama: [habitacion.tipo_cama,Validators.required]
+          tipo_cama: [habitacion.tipo_cama,Validators.required],
+          tipo_habitacion : [habitacion.tipo_habitacion,Validators.required]
         });
       })
       }else{
@@ -52,7 +53,8 @@ export class HabitacionFormComponent implements OnInit {
           capacidad_personas: ['',Validators.required],
           servicios: ['',Validators.required],
           numero_camas: ['',Validators.required],
-          tipo_cama: ['',Validators.required]
+          tipo_cama: ['',Validators.required],
+          tipo_habitacion : ['',Validators.required]
 
         });
       }

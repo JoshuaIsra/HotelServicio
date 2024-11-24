@@ -9,6 +9,8 @@ import { ReservaFormComponent } from './pages/reserva-form/reserva-form.componen
 import { CommonModule } from '@angular/common';
 import { FacturasComponent } from './pages/facturas/facturas.component';
 import { FacturasFormComponent } from './pages/facturas-form/facturas-form.component';
+import { PersonalComponent } from './pages/personal/personal.component';
+import { PersonalFormComponent } from './pages/personal-form/personal-form.component';
 
 export const routes: Routes = [
     {
@@ -26,7 +28,9 @@ export const routes: Routes = [
     {  
         path: 'facturas',component:FacturasComponent
     },
-
+    {
+        path: 'personal',component:PersonalComponent
+    },
     {
         path: 'habitacion-form',component:HabitacionFormComponent
     },
@@ -40,6 +44,9 @@ export const routes: Routes = [
         path:'facturas-form',component:FacturasFormComponent
     },
     {
+        path:'personal-form',component:PersonalFormComponent
+    },
+    {
         path:'reservas-form/:id',component:FacturasFormComponent
     },
     {
@@ -50,7 +57,6 @@ export const routes: Routes = [
         path: 'edit-cliente/:id',
         component:ClienteFormComponent
     },
-    
     {
         path: 'edit-habitacion/:id',
         component:HabitacionFormComponent
@@ -60,6 +66,9 @@ export const routes: Routes = [
     },
     {
         path: 'edit-factura/:id',component:FacturasFormComponent
+    },
+    {
+        path: 'edit-personal/:id',component:PersonalFormComponent
     },
     {
         path: '**',

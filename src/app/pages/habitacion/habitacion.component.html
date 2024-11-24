@@ -21,6 +21,8 @@
         <th style="padding: 20px;"> Capacidad de personas</th>
         <th style="padding: 20px;"> tipo cama</th>
         <th style="padding: 20px;"> Servicios</th>
+        <th style="padding: 20px;"> Tipo de Habitacion</th>
+        <th style="padding: 20px;"> Opciones</th>
         <th>
 
         </th>
@@ -36,10 +38,13 @@
             <th style="padding: 10px;">{{hab.capacidad_personas}}</th>
             <th style="padding: 10px;">{{hab.tipo_cama}}</th>
             <th style="padding: 10px;">
-                {{hab.servicios.wifi ? 'Wifi,' : 'Sin Wifi'}}
+                {{hab.servicios.wifi ? 'wifi,' : ''}}
                 {{hab.servicios.tv ? 'Con TV,' : ''}}
+                {{hab.servicios.calefaccion ? 'calefaccion,' : ''}}
+                {{hab.servicios.aire_acondicionado ? 'calefaccion,' : ''}}
 
             </th>
+            <th style="padding: 10px;">{{hab.tipo_habitacion}}</th>
             <td>
                 <div class="btn-group">
                     <button (click)="goToEdit(hab.id)" class="btn btn-primary" > Editar </button> <!-- funcion para redireccionar a la pagina de edicion -->

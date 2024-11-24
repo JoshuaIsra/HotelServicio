@@ -1,0 +1,47 @@
+<br>
+<div class="text-end">
+    <button class="btn btn-success" (click)="goToNew()">Nuevo Personal</button>
+</div>
+
+<table class="table table-striped table-hover align-middle">    
+    <thead class="table-dark">
+        <tr>
+            <th scope="col">ID Personal</th>
+            <th scope="col">ID Persona</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Apellido</th>
+            <th scope="col">Correo</th>
+            <th scope="col">Dirección</th>
+            <th scope="col">Teléfono</th>
+            <th scope="col">Rol</th>
+            <th scope="col">Salario</th>
+            <th scope="col">Turno</th>
+            <th scope="col">Tipo de Personal</th>
+            <th scope="col">Opciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (personal of personal; track personal) {
+            <tr>
+                <td>{{personal.id}}</td>
+                <td>{{personal.persona.id}}</td>
+                <td>{{personal.persona.nombre}}</td>
+                <td>{{personal.persona.apellido}}</td>
+                <td>{{personal.persona.correo}}</td>
+                <td>{{personal.persona.direccion}}</td>
+                <td>{{personal.persona.telefono}}</td>
+                <td>{{personal.rol}}</td>
+                <td>{{personal.salario}}</td>
+                <td>{{personal.turno}}</td>
+                <td>{{personal.type_personal}}</td>
+                <td>
+                    <div class="btn-group" role="group">
+                        <button (click)="goToEdiit(personal.id)" class="btn btn-primary btn-sm">Editar</button>
+                        <button (click)="deletePersonal(personal.id)" class="btn btn-danger btn-sm">Eliminar</button>
+                    </div>
+                </td>
+            </tr>
+        }
+
+    </tbody>
+</table>

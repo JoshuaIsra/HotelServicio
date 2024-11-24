@@ -8,7 +8,7 @@
             <label for="id reserva" class="form-label">id Reserva</label>
             <select formControlName="reserva_id" class="form-select" id="reserva_id">
                 <!-- <option *ngFor="let reserva of reservas" [value]="reserva.id">{{ reserva.id }}</option> -->
-                <option *ngFor="let reserva of reservas" [value]="reservas.id">{{ reservas.id }}</option>
+                <option *ngFor="let reserva of reservas" [value]="reserva.id">{{ reserva.id }}</option>
             </select>
         </div>
         <div class="form-group">
@@ -29,13 +29,17 @@
         </div>
         <div class="form-group">
             <label for="montoTotal" class="form-label"> Estado de Pago</label>
-            <input type="text" formControlName="estadoPago" class="form-control" id="estadoPago">
+            <select formControlName="estadoPago" class="form-select" id="estadoPago">
+                <option value="Pendiente">Pendiente</option>
+                <option value="Pagado">Pagado</option>
+            </select>
+            
         </div>
         <br>
-        <div>
-            <button type="submit" class="btn btn-primary">
+        
+            <button type="submit" class="btn btn-success">
                 {{fact ? 'Actualizar Factura' : 'Crear Factura'}}
             </button>
-        </div>
+        
     </form>
 </div>
