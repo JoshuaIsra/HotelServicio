@@ -1,35 +1,71 @@
 <h2 class="text-center" style="color: antiquewhite;">
     {{ reser ? 'EDITAR' : 'CREAR' }} Reserva
 </h2>
-<div class="row row-cols-3 justify-content-center" style="color: aliceblue;">
-    <form [formGroup]="form" (ngSubmit)="save()">
+<div class="row justify-content-center" style="color: aliceblue;">
+    <form [formGroup]="form" (ngSubmit)="save()" class="col-6">
+
+        <!-- Fecha de Reserva -->
         <div class="form-group">
-            <label for="fecha_reserva" class="form-label">Fecha de reserva</label>
+            <label for="fecha_reserva" class="form-label">Fecha de Reserva</label>
             <input type="date" formControlName="fecha_reserva" class="form-control" id="fecha_reserva">
+            <div *ngIf="form.get('fecha_reserva')?.hasError('required') && form.get('fecha_reserva')?.touched" class="text-danger">
+                La fecha de reserva es obligatoria.
+            </div>
         </div>
+
+        <!-- Fecha de Entrada -->
         <div class="form-group">
-            <label for="fecha_inicio" class="form-label">Fecha de Inicio</label>
+            <label for="fecha_inicio" class="form-label">Fecha de Entrada</label>
             <input type="date" formControlName="fecha_inicio" class="form-control" id="fecha_inicio">
+            
+            <div *ngIf="form.get('fecha_inicio')?.hasError('required') && form.get('fecha_inicio')?.touched" class="text-danger">
+                La fecha de entrada es obligatoria.
+            </div>
         </div>
+
+        <!-- Fecha de Salida -->
         <div class="form-group">
-            <label for="fecha_fin" class="form-label">Fecha de fin</label>
+            <label for="fecha_fin" class="form-label">Fecha de Salida</label>
             <input type="date" formControlName="fecha_fin" class="form-control" id="fecha_fin">
+            <div *ngIf="form.get('fecha_fin')?.hasError('required') && form.get('fecha_fin')?.touched" class="text-danger">
+                La fecha de salida es obligatoria.
+            </div>
+            <div *ngIf="form.errors?.['invalidDateRange'] && (form.touched || form.dirty)" class="text-danger">
+                La fecha de entrada no puede ser posterior a la fecha de salida.
+            </div>
+            
+            
         </div>
+
+        <!-- Cliente -->
         <div class="form-group">
             <label for="cliente_id" class="form-label">Cliente</label>
             <select formControlName="cliente_id" class="form-select" id="cliente_id">
-                <option *ngFor="let cliente of clientes" [value]="cliente.id">{{ cliente.persona.nombre }}</option>
+                <option *ngFor="let cliente of clientes" [value]="cliente.id">
+                    {{ cliente.persona.nombre }} {{ cliente.persona.apellido }}
+                </option>
             </select>
+            <div *ngIf="form.get('cliente_id')?.hasError('required') && form.get('cliente_id')?.touched" class="text-danger">
+                Seleccionar un cliente es obligatorio.
+            </div>
         </div>
+
+        <!-- Habitación -->
         <div class="form-group">
-            <label for="habitacion_id" class="form-label">Habitacion</label>
+            <label for="habitacion_id" class="form-label">Habitación</label>
             <select formControlName="habitacion_id" class="form-select" id="habitacion_id">
-                <option *ngFor="let habitacion of habitaciones" [value]="habitacion.id">{{ habitacion.id }}</option>
+                <option *ngFor="let habitacion of habitaciones" [value]="habitacion.id">
+                    Habitación {{ habitacion.id }} - ({{ habitacion.precio_noche | currency }})
+                </option>
             </select>
+            <div *ngIf="form.get('habitacion_id')?.hasError('required') && form.get('habitacion_id')?.touched" class="text-danger">
+                Seleccionar una habitación es obligatorio.
+            </div>
         </div>
-        
+
+        <!-- Estado de la Reserva -->
         <div class="form-group">
-            <label for="estadoReserva" class="form-label">Estado de La Reserva</label>
+            <label for="estadoReserva" class="form-label">Estado de la Reserva</label>
             <select formControlName="estadoReserva" class="form-select" id="estadoReserva">
                 <option value="Pendiente">Pendiente</option>
                 <option value="Confirmada">Confirmada</option>
@@ -37,10 +73,16 @@
                 <option value="Cancelada">Cancelada</option>
                 <option value="Completada">Completada</option>
             </select>
+            <div *ngIf="form.get('estadoReserva')?.hasError('required') && form.get('estadoReserva')?.touched" class="text-danger">
+                Seleccionar el estado de la reserva es obligatorio.
+            </div>
         </div>
-        <br>
-        <button type="submit" class="btn btn-success">
-            {{ reser ? 'Actualizar Cliente' : 'Crear Cliente' }}
-        </button>
+
+        <!-- Botón de Guardar -->
+        <div class="mt-3 text-center">
+            <button type="submit" class="btn btn-success" [disabled]="form.invalid">
+                {{ reser ? 'Actualizar Reserva' : 'Crear Reserva' }}
+            </button>
+        </div>
     </form>
 </div>

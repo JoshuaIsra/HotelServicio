@@ -33,4 +33,7 @@ getReserva(id: number): Observable<Reserva> {
     const habitacionId = parseInt(id, 10); 
     return this._http.delete(`${APIURL}reserva/delete/${id}`);  
   }
+  getReservaById(id: number) {
+    return this._http.get<any>(`/api/reservas/${id}`); // Ajusta la ruta según tu API
+  }
 }

@@ -11,6 +11,7 @@ import { FacturasComponent } from './pages/facturas/facturas.component';
 import { FacturasFormComponent } from './pages/facturas-form/facturas-form.component';
 import { PersonalComponent } from './pages/personal/personal.component';
 import { PersonalFormComponent } from './pages/personal-form/personal-form.component';
+import { HabitacionesClienteComponent } from './pages/habitaciones-cliente/habitaciones-cliente.component';
 
 export const routes: Routes = [
     {
@@ -31,6 +32,7 @@ export const routes: Routes = [
     {
         path: 'personal',component:PersonalComponent
     },
+
     {
         path: 'habitacion-form',component:HabitacionFormComponent
     },
@@ -69,6 +71,9 @@ export const routes: Routes = [
     },
     {
         path: 'edit-personal/:id',component:PersonalFormComponent
+    },
+    {
+        path: 'habitaciones-cliente/:id',component:HabitacionesClienteComponent
     },
     {
         path: '**',

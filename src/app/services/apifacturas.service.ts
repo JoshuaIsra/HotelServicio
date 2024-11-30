@@ -27,5 +27,7 @@ export class ApifacturasService {
     const facturaId = parseInt(id, 10);
     return this._http.delete<void>(`${APIURL}factura/delete/${id}`);
   }
-
+  getReservaById(id: number) {
+    return this._http.get<any>(`/api/reservas/${id}`); // Ajusta la ruta según tu API
+  }
 }

@@ -1,4 +1,4 @@
-<h2 style="color: aliceblue;">
+<h2 style="color: aliceblue;" class="text-center">
     {{ fact ? 'EDITAR' : 'CREAR' }} Factura
 </h2>
 
@@ -6,10 +6,18 @@
     <form [formGroup]="form" (ngSubmit)="save()">
         <div class="form-group">
             <label for="id reserva" class="form-label">id Reserva</label>
-            <select formControlName="reserva_id" class="form-select" id="reserva_id">
-                <!-- <option *ngFor="let reserva of reservas" [value]="reserva.id">{{ reserva.id }}</option> -->
+            <!-- <select formControlName="reserva_id" class="form-select" id="reserva_id">
                 <option *ngFor="let reserva of reservas" [value]="reserva.id">{{ reserva.id }}</option>
-            </select>
+                <option *ngFor="let reserva of reservas" [value]="reserva.id">{{ reserva.id }}</option>
+            </select> -->
+            <select formControlName="reserva_id" class="form-select" id="reserva_id" (change)="cambio($event)">
+                <option value="" disabled selected>Selecciona una reserva</option>
+                <option *ngFor="let reserva of reservas" [value]="reserva.id">{{ reserva.id }} - id Cliente {{reserva.cliente_id}}</option>
+              </select>
+              <div *ngIf="form.get('reserva_id')?.invalid && form.get('reserva_id')?.touched" class="text-danger">
+                Por favor selecciona una reserva.
+              </div>
+              
         </div>
         <div class="form-group">
             <label for="fechaEmision" class="form-label"> Fecha de Emision</label>
@@ -26,7 +34,7 @@
                 <option value="Targeta de Credito">Targeta de Credito</option>
                 <option value="Targeta de Debito">Targeta de Debito</option>
             </select>
-        </div>
+        </div>  
         <div class="form-group">
             <label for="montoTotal" class="form-label"> Estado de Pago</label>
             <select formControlName="estadoPago" class="form-select" id="estadoPago">

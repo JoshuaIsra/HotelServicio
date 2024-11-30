@@ -18,7 +18,7 @@
         @for (reser of Reservas; track reser.id) {
             <tr>
                 <td>{{reser.id}}</td>
-                <td>{{reser.cliente_id}}</td>
+                <td>{{reser.cliente.persona_id}}</td>
                 <td>{{reser.habitacion_id}}</td>
                 <td>{{reser.fecha_reserva}}</td>
                 <td>{{reser.fecha_inicio}}</td>

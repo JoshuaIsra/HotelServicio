@@ -24,10 +24,12 @@ export class FacturasFormComponent {
   reservas: any = [] = [];
 
   constructor() {
+    const today = new Date().toISOString().split('T')[0]; 
+
     this.form = this.fb.group({
       reserva_id: ['', Validators.required],
-      fechaEmision: ['', Validators.required],
-      montoTotal: ['', Validators.required],
+      fechaEmision: [today, Validators.required],
+      montoTotal: ['', [Validators.required, Validators.min(0)]],
       metodoPago: ['', Validators.required],
       estadoPago: ['', Validators.required],
     });
@@ -52,7 +54,7 @@ export class FacturasFormComponent {
           this.fact = factura;
           this.form.setValue({
             reserva_id: factura.reserva_id,
-            fechaEmision: factura.fechaEmision,
+            fechaEmision: factura.fechaEmision || new Date().toISOString().split('T')[0], // Usa la fecha existente o la actual
             montoTotal: factura.montoTotal,
             metodoPago: factura.metodoPago,
             estadoPago: factura.estadoPago,
@@ -64,6 +66,62 @@ export class FacturasFormComponent {
       console.log('No se encontró un ID de factura en la URL.');
     }
   }
+
+
+  cambio(event: any) {
+    console.log('Cambio en el campo:', event.target.value);
+
+    // Encuentra la reserva seleccionada
+    const reserva = this.reservas.find((reserva: any) => reserva.id === +event.target.value);
+    console.log('Reserva seleccionada:', reserva);
+
+    if (reserva) {
+        console.log('Fechas de reserva (crudas):', reserva.fecha_inicio, reserva.fecha_fin);
+
+        // Verifica si las fechas y precio existen
+        if (!reserva.fecha_inicio || !reserva.fecha_fin || !reserva.habitacion.precio_noche) {
+            console.error('Datos incompletos para calcular el monto total.');
+            this.form.get('montoTotal')?.setValue(null); // Limpia el campo si no hay datos válidos
+            return;
+        }
+
+        // Extrae fechas y precio por noche
+        let fechainicio: Date, fechafin: Date;
+        try {
+            fechainicio = new Date(reserva.fecha_inicio); // Cambia si el formato no es ISO
+            fechafin = new Date(reserva.fecha_fin);
+        } catch (e) {
+            console.error('Error al convertir las fechas:', e);
+            this.form.get('montoTotal')?.setValue(null);
+            return;
+        }
+
+        // Verifica que las fechas sean válidas
+        if (isNaN(fechainicio.getTime()) || isNaN(fechafin.getTime())) {
+            console.error('Fechas inválidas:', fechainicio, fechafin);
+            this.form.get('montoTotal')?.setValue(null); // Limpia el campo si las fechas no son válidas
+            return;
+        }
+
+        // Calcula la diferencia de días
+        const diffTime = Math.abs(fechafin.getTime() - fechainicio.getTime());
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); // Milisegundos a días
+
+        console.log('Días de reserva:', diffDays);
+
+        // Calcula el monto total
+        const montoTotal = diffDays * reserva.habitacion.precio_noche;
+        console.log('Monto total:', montoTotal);
+
+        // Actualiza el formulario con el monto total
+        this.form.get('montoTotal')?.setValue(montoTotal);
+    } else {
+        console.error('Reserva no encontrada.');
+        this.form.get('montoTotal')?.setValue(null); // Limpia el campo si no hay reserva
+    }
+}
+
+
 
   save() {
     if (this.form.invalid) {

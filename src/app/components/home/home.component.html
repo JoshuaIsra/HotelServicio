@@ -1,4 +1,4 @@
-<body>
+
     
     <div class="container">
         <div class="input-group">
@@ -10,18 +10,22 @@
             <input type="date" />
         </div>
         <div class="input-group">
+            <label > Habitaciones Disponibles</label>
             <select>
-                <option value="1">Habitacion5</option>
-                <option value="2">Habitacion</option>
-                <option value="3">Habitacio san</option>
-                <option value="4">Habitacion</option>
-                <option value="5">Habitacion</option>
+                @for (item of habitaciones; track item.id) {
+                    @if (item.estado == true) {
+                        <option value="{{item.id}}">{{item.id}}</option>
+                        
+                    }
+                    
+                }
             </select>
             
         </div>
         
         <div class="btn btn-group ">
-            <button class="btn btn-primary">Reservar</button>
+                
+            
             
         </div>
     

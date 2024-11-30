@@ -2,11 +2,12 @@ import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { ApiClienteService } from '../../services/api-cliente.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-cliente-form',
   standalone: true,
-  imports: [RouterModule, ReactiveFormsModule],
+  imports: [RouterModule, ReactiveFormsModule, CommonModule],
   templateUrl: './cliente-form.component.html',
   styleUrl: './cliente-form.component.css'
 })
@@ -24,9 +25,12 @@ export class ClienteFormComponent implements OnInit {
       estado: ['', Validators.required],
       nombre: ['', Validators.required],
       apellido: ['', Validators.required],
-      email: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
       direccion: ['', Validators.required],
-      telefono: ['', Validators.required]
+      telefono: ['', Validators.compose([
+        Validators.required,
+        Validators.pattern(/^\d{10}$/)
+      ])]
     });
   }
 
@@ -48,6 +52,11 @@ export class ClienteFormComponent implements OnInit {
   }
 
   save() {
+    if (this.form.invalid) {
+      alert('Por favor, complete todos los campos correctamente.');
+      return;
+    }
+
     const clienteform = this.form.value;
     const persona = {
       nombre: clienteform.nombre,

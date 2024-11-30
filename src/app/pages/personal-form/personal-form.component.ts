@@ -2,11 +2,12 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { ApipersonalService } from '../../services/apipersonal.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-personal-form',
   standalone: true,
-  imports: [RouterModule,ReactiveFormsModule],
+  imports: [RouterModule,ReactiveFormsModule,CommonModule],
   templateUrl: './personal-form.component.html',
   styleUrl: './personal-form.component.css'
 })
@@ -20,14 +21,14 @@ export class PersonalFormComponent {
   personal: any = null;
   constructor() {
     this.form=this.fb.group({
-      nombre: ['',Validators.required],
-      apellido: ['',Validators.required],
-      email: ['',Validators.required],
+      nombre: ['',[Validators.required,Validators.pattern('^[a-zA-ZáéíóúÁÉÍÓÚñÑ ]+$')]],
+      apellido: ['',[Validators.required,Validators.pattern('^[a-zA-ZáéíóúÁÉÍÓÚñÑ ]+$')]],
+      email: ['',[Validators.required,Validators.email]],
       direccion: ['',Validators.required],
-      telefono: ['', Validators.required],
+      telefono: ['', [Validators.required,Validators.pattern('^[0-9]{10}$')]],
       rol:['',Validators.required],
       turno:['',Validators.required],
-      salario:['',Validators.required],
+      salario:['',[Validators.required,Validators.pattern('^[0-9]+(\\.[0-9]{1,2})?$')]],
       type_personal:['',Validators.required]
     });
 
@@ -53,6 +54,11 @@ export class PersonalFormComponent {
     }
   }
   save(){
+    if (this.form.invalid) {
+      alert('Por favor completa los campos obligatorios correctamente.');
+      return;
+    }
+
     const personalForm = this.form.value;
     const persona = {
       nombre: personalForm.nombre,

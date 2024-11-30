@@ -1,15 +1,26 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators,AbstractControl,ValidationErrors,ValidatorFn } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApirerservasService } from '../../services/apirerservas.service';
 import { ApiClienteService } from '../../services/api-cliente.service';
 import { ApiService } from '../../services/api.service';
 import { CommonModule } from '@angular/common';
 
+export function dateRangeValidator(): ValidatorFn {
+  return (group: AbstractControl): ValidationErrors | null => {
+    const fechaInicio = group.get('fecha_inicio')?.value;
+    const fechaFin = group.get('fecha_fin')?.value;
+
+    if (fechaInicio && fechaFin && fechaInicio > fechaFin) {
+      return { invalidDateRange: true }; // Error personalizado
+    }
+    return null; // No hay errores
+  };
+}
 @Component({
   selector: 'app-reserva-form',
   standalone: true,
-  imports: [ReactiveFormsModule,CommonModule],
+  imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './reserva-form.component.html',
   styleUrls: ['./reserva-form.component.css']
 })
@@ -34,20 +45,23 @@ export class ReservaFormComponent implements OnInit {
       cliente_id: ['', Validators.required],
       habitacion_id: ['', Validators.required],
       estadoReserva: ['', Validators.required],
-    });
+    }, { validators: dateRangeValidator() });
   }
 
   ngOnInit(): void {
+    const today = new Date().toISOString().split('T')[0];
+    this.form.patchValue({ fecha_reserva: today });
+
     this.clienteService.getClientes().subscribe(clientes => {
       console.log('Clientes:', clientes);
       this.clientes = clientes;
     });
-  
+
     this.habitacionService.getHabitaciones().subscribe(habitaciones => {
       console.log('Habitaciones:', habitaciones);
       this.habitaciones = habitaciones;
     });
-    
+
     const id = this.route.snapshot.paramMap.get('id');
     if (id && !isNaN(+id)) {
       this.reservaService.getReserva(+id).subscribe(
@@ -68,7 +82,18 @@ export class ReservaFormComponent implements OnInit {
       );
     }
   }
+
+  dateValidator(group: FormGroup): { [key: string]: boolean } | null {
+    const fechaInicio = group.get('fecha_inicio')?.value;
+    const fechaFin = group.get('fecha_fin')?.value;
   
+    if (fechaInicio && fechaFin && new Date(fechaInicio) > new Date(fechaFin)) {
+      return { invalidDateRange: true };
+    }
+    return null;
+  }
+  
+
   save(): void {
     const reservaform = this.form.value;
     const reserva = {
