@@ -3,52 +3,107 @@ import { Habitaciones } from '../../Model/Habitaciones';
 import { ApiService } from '../../services/api.service';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { jsDocComment } from '@angular/compiler';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ApiClienteService } from '../../services/api-cliente.service';
+import { CommonModule } from '@angular/common';
+import { ApirerservasService } from '../../services/apirerservas.service';
+import { dateRangeValidator } from '../../pages/reserva-form/reserva-form.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [],
+  imports: [ReactiveFormsModule,CommonModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
 export class HomeComponent implements OnInit{
-  private Habitacionservice = inject(ApiService);
-  habitaciones: Habitaciones[] = [];
-  private _router = inject(Router);
+  private fb = inject(FormBuilder);
+  private router = inject(Router);
+  private route = inject(ActivatedRoute);
+  private reservaService = inject(ApirerservasService);
+  private clienteService = inject(ApiClienteService);
+  private habitacionService = inject(ApiService);
   
+  clientes: any[] = [];
+  habitaciones: any[] = [];
+  form!: FormGroup;
+  reser: any = null;
 
 constructor() { 
+  this.form = this.fb.group({
+    fecha_reserva: ['', Validators.required],
+    fecha_inicio: ['', Validators.required],
+    fecha_fin: ['', Validators.required],
+    cliente_id: ['', Validators.required],
+    habitacion_id: ['', Validators.required],
+    estadoReserva: ['', Validators.required],
+  }, { validators: dateRangeValidator() });
   }
 
   ngOnInit(): void {
-    this.getHabitaciones();
-    
-  }
+    const today = new Date().toISOString().split('T')[0];
+    this.form.patchValue({ fecha_reserva: today });
 
-  getHabitaciones(){
-    
-    this.Habitacionservice.getHabitaciones().subscribe((data) => {
-      this.habitaciones = data;
-      console.log(data);
+    this.clienteService.getClientes().subscribe(clientes => {
+      console.log('Clientes:', clientes);
+      this.clientes = clientes;
     });
-  }
 
-  getHabitacionDispo(habitacion: Habitaciones){
-    if (habitacion.estado == true){
-      return "Disponible";
-    }else{
-      return "No Disponible";
+    this.habitacionService.getHabitaciones().subscribe(habitaciones => {
+      console.log('Habitaciones:', habitaciones);
+      this.habitaciones = habitaciones;
+    });
+
+    const id = this.route.snapshot.paramMap.get('id');
+    if (id && !isNaN(+id)) {
+      this.reservaService.getReserva(+id).subscribe(
+        reserva => {
+          this.reser = reserva;
+          this.form.patchValue({
+            fecha_reserva: reserva.fecha_reserva,
+            fecha_inicio: reserva.fecha_inicio,
+            fecha_fin: reserva.fecha_fin,
+            cliente_id: reserva.cliente_id,
+            habitacion_id: reserva.habitacion_id,
+            estadoReserva: reserva.estadoReserva
+          });
+        },
+        error => {
+          console.error('Error al obtener la reserva:', error);
+        }
+      );
     }
-    
   }
 
-  goToHabitaciones(id: number){
+  dateValidator(group: FormGroup): { [key: string]: boolean } | null {
+    const fechaInicio = group.get('fecha_inicio')?.value;
+    const fechaFin = group.get('fecha_fin')?.value;
   
-    this._router.navigate(['/habitaciones-cliente','id']);
-  }
+    if (fechaInicio && fechaFin && new Date(fechaInicio) > new Date(fechaFin)) {
+      return { invalidDateRange: true };
+    }
+    return null;
   }
   
+
+  save(): void {
+    const reservaform = this.form.value;
+    const reserva = {
+      fecha_reserva: reservaform.fecha_reserva,
+      fecha_inicio: reservaform.fecha_inicio,
+      fecha_fin: reservaform.fecha_fin,
+      cliente_id: reservaform.cliente_id,
+      habitacion_id: reservaform.habitacion_id,
+      estadoReserva: reservaform.estadoReserva
+    };
+    if (this.reser) {
+      this.reservaService.updateReserva(this.reser.id, reserva).subscribe(() => this.router.navigate(['/reserva']));
+    } else {
+      this.reservaService.createReserva(reserva).subscribe(() => this.router.navigate(['/reserva']));
+      alert('Reserva creada con exito');
+    }
+  }
+}
 
 
 

@@ -3,12 +3,12 @@ import { ApiService } from '../../services/api.service';
 import { Habitaciones } from '../../Model/Habitaciones';
 import { Router } from '@angular/router';
 import { HabitacionFormComponent } from "../habitacion-form/habitacion-form.component";
-import { CurrencyPipe } from '@angular/common';
+import { CommonModule, CurrencyPipe,JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'app-habitacion',
   standalone: true,
-  imports: [ HabitacionFormComponent,CurrencyPipe],
+  imports: [ HabitacionFormComponent,CurrencyPipe,CommonModule,JsonPipe],
   templateUrl: './habitacion.component.html',
   styleUrl: './habitacion.component.css'
 })
@@ -37,6 +37,7 @@ export class HabitacionComponent implements OnInit{
       this.habitacionservice.getHabitaciones().subscribe((data) => {
         this.habitaciones = data;
         console.log(data);
+        console.log(this.habitaciones);
       });
     
   }

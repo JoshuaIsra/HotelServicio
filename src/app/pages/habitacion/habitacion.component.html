@@ -37,13 +37,18 @@
             <th style="padding: 10px;">{{hab.estado == true? 'Disponible' :'No Disponible'}}</th>
             <th style="padding: 10px;">{{hab.capacidad_personas}}</th>
             <th style="padding: 10px;">{{hab.tipo_cama}}</th>
-            <th style="padding: 10px;">
-                {{hab.servicios.wifi ? 'wifi,' : ''}}
-                {{hab.servicios.tv ? 'Con TV,' : ''}}
-                {{hab.servicios.calefaccion ? 'calefaccion,' : ''}}
-                {{hab.servicios.aire_acondicionado ? 'calefaccion,' : ''}}
+            <!-- <th style="padding: 10px;">
+                {{hab.servicios.wifi ? 'Wifi' : ' Sin wifi'}}
+                {{hab.servicios.tv ? 'Tv' : 'Sin tv'}}
+                {{hab.servicios.calefaccion ? 'Calefaccion' : 'Sin calefaccion'}}
+            
+                
 
+            </th>  -->
+            <th style="padding: 10px;">
+                {{ hab.servicios | json }}
             </th>
+            
             <th style="padding: 10px;">{{hab.tipo_habitacion}}</th>
             <td>
                 <div class="btn-group">

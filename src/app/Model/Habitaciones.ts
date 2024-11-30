@@ -14,5 +14,4 @@ export interface servicios {
     wifi: boolean;
     tv: boolean;
     calefaccion: boolean;
-    aire_acondicionado: boolean;
 }
