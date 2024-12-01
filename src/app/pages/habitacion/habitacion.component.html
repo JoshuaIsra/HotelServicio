@@ -1,7 +1,6 @@
-<button (click)="toggleTable()">Mostrar-/Ocultar</button>
-
+<br>
 <div class="text-end">
-    <button (click)="goToNew()" button btn-success>
+    <button (click)="goToNew()"  class="btn btn-success" >
         Nueva Habitacion
     </button>
 </div>
@@ -10,9 +9,8 @@
 <!-- <table style="color: aliceblue; border-spacing: 10px; width: 100%;">  -->
 <!-- <div [class.hidden]="!mostarTabla"> -->
 <div>
-<h2 style="color: azure;"> Registro de Habitaciones</h2>
-<table class="table table-hover" > 
-    <thead style ="color: aliceblue;">
+<table class="table table-striped table-hover align-middle">
+    <thead class="table-dark">
         <tr>
         <th style="padding: 20px;"> Id </th>
         <th style="padding: 20px;"> Numero de Camas</th>
@@ -37,16 +35,7 @@
             <th style="padding: 10px;">{{hab.estado == true? 'Disponible' :'No Disponible'}}</th>
             <th style="padding: 10px;">{{hab.capacidad_personas}}</th>
             <th style="padding: 10px;">{{hab.tipo_cama}}</th>
-            <!-- <th style="padding: 10px;">
-                {{hab.servicios.wifi ? 'Wifi' : ' Sin wifi'}}
-                {{hab.servicios.tv ? 'Tv' : 'Sin tv'}}
-                {{hab.servicios.calefaccion ? 'Calefaccion' : 'Sin calefaccion'}}
-            
-                
-
-            </th>  -->
-            <th style="padding: 10px;">
-                {{ hab.servicios | json }}
+            <th style="padding: 10px;">                 {{ hab.servicios | json }}
             </th>
             
             <th style="padding: 10px;">{{hab.tipo_habitacion}}</th>
