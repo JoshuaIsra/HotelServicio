@@ -64,20 +64,19 @@
         </div>
 
         <!-- Estado de la Reserva -->
-        <div class="form-group">
+        <!-- <div class="form-group">
             <label for="estadoReserva" class="form-label">Estado de la Reserva</label>
             <select formControlName="estadoReserva" class="form-select" id="estadoReserva">
-                <option value="Pendiente">Pendiente</option>
-                <option value="Confirmada">Confirmada</option>
-                <option value="En espera">En espera</option>
-                <option value="Cancelada">Cancelada</option>
-                <option value="Completada">Completada</option>
+              <option value="Pendiente">Pendiente</option>
+              <option value="Confirmada">Confirmada</option>
+              <option value="En espera">En espera</option>
+              <option value="Cancelada">Cancelada</option>
+              <option value="Completada">Completada</option>
             </select>
             <div *ngIf="form.get('estadoReserva')?.hasError('required') && form.get('estadoReserva')?.touched" class="text-danger">
-                Seleccionar el estado de la reserva es obligatorio.
+              Seleccionar el estado de la reserva es obligatorio.
             </div>
-        </div>
-
+          </div> -->
         <!-- Botón de Guardar -->
         <div class="mt-3 text-center">
             <button type="submit" class="btn btn-success" [disabled]="form.invalid">

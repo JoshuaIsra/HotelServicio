@@ -44,7 +44,7 @@ export class ReservaFormComponent implements OnInit {
       fecha_fin: ['', Validators.required],
       cliente_id: ['', Validators.required],
       habitacion_id: ['', Validators.required],
-      estadoReserva: ['', Validators.required],
+      estadoReserva: ['Confimada', Validators.required],
     }, { validators: dateRangeValidator() });
   }
 
@@ -96,18 +96,19 @@ export class ReservaFormComponent implements OnInit {
 
   save(): void {
     const reservaform = this.form.value;
-    const reserva = {
-      fecha_reserva: reservaform.fecha_reserva,
-      fecha_inicio: reservaform.fecha_inicio,
-      fecha_fin: reservaform.fecha_fin,
-      cliente_id: reservaform.cliente_id,
-      habitacion_id: reservaform.habitacion_id,
-      estadoReserva: reservaform.estadoReserva
-    };
-    if (this.reser) {
-      this.reservaService.updateReserva(this.reser.id, reserva).subscribe(() => this.router.navigate(['/reserva']));
-    } else {
-      this.reservaService.createReserva(reserva).subscribe(() => this.router.navigate(['/reserva']));
-    }
+    console.log('Formulario:', reservaform);
+     const reserva = {
+       fecha_reserva: reservaform.fecha_reserva,
+       fecha_inicio: reservaform.fecha_inicio,
+       fecha_fin: reservaform.fecha_fin,
+       cliente_id: reservaform.cliente_id,
+       habitacion_id: reservaform.habitacion_id,
+       estadoReserva: reservaform.estadoReserva
+     };
+     if (this.reser) {
+       this.reservaService.updateReserva(this.reser.id, reserva).subscribe(() => this.router.navigate(['/reserva']));
+     } else {
+       this.reservaService.createReserva(reserva).subscribe(() => this.router.navigate(['/reserva']));
+     }
   }
 }

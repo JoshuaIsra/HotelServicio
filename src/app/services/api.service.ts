@@ -27,8 +27,11 @@ export class ApiService {
     
 
   deleteHabitacion(id:any){
-    const habitacionId = parseInt(id, 10); // convierte el id a número
+    const habitacionId = parseInt(id, 10); 
     return this._http.delete<void>(`${APIURL}habitacion/delete/${id}`);
+}
+updateHabitacionEstado(id: number, estado: boolean): Observable<any> {
+  return this._http.put(`${APIURL}habitacion/updateEstado/${id}`, { estado });
 }
 
 }

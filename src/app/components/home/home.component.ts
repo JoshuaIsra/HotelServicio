@@ -36,7 +36,7 @@ constructor() {
     fecha_fin: ['', Validators.required],
     cliente_id: ['', Validators.required],
     habitacion_id: ['', Validators.required],
-    estadoReserva: ['', Validators.required],
+    estadoReserva: ['Confirmada', Validators.required],
   }, { validators: dateRangeValidator() });
   }
 
@@ -87,21 +87,49 @@ constructor() {
   
 
   save(): void {
-    const reservaform = this.form.value;
-    const reserva = {
-      fecha_reserva: reservaform.fecha_reserva,
-      fecha_inicio: reservaform.fecha_inicio,
-      fecha_fin: reservaform.fecha_fin,
-      cliente_id: reservaform.cliente_id,
-      habitacion_id: reservaform.habitacion_id,
-      estadoReserva: reservaform.estadoReserva
-    };
-    if (this.reser) {
-      this.reservaService.updateReserva(this.reser.id, reserva).subscribe(() => this.router.navigate(['/reserva']));
-    } else {
-      this.reservaService.createReserva(reserva).subscribe(() => this.router.navigate(['/reserva']));
-      alert('Reserva creada con exito');
-    }
+  //   const reservaform = this.form.value;
+  //   const reserva = {
+  //     fecha_reserva: reservaform.fecha_reserva,
+  //     fecha_inicio: reservaform.fecha_inicio,
+  //     fecha_fin: reservaform.fecha_fin,
+  //     cliente_id: reservaform.cliente_id,
+  //     habitacion_id: reservaform.habitacion_id,
+  //     estadoReserva: reservaform.estadoReserva
+  //   };
+  //   if (this.reser) {
+  //     this.reservaService.updateReserva(this.reser.id, reserva).subscribe(() => this.router.navigate(['/reserva']));
+  //   } else {
+  //     this.reservaService.createReserva(reserva).subscribe(() => this.router.navigate(['/reserva']));
+  //     alert('Reserva creada con exito');
+  //   }
+  // }
+  const reservaform = this.form.value;
+  const reserva = {
+    fecha_reserva: reservaform.fecha_reserva,
+    fecha_inicio: reservaform.fecha_inicio,
+    fecha_fin: reservaform.fecha_fin,
+    cliente_id: reservaform.cliente_id,
+    habitacion_id: reservaform.habitacion_id,
+    estadoReserva: reservaform.estadoReserva
+  };
+
+  const updateHabitacionEstado = (habitacionId: number, estado: boolean) => {
+    this.habitacionService.updateHabitacionEstado(habitacionId, estado).subscribe(() => {
+      console.log('Estado de la habitación actualizado');
+    });
+  };
+
+  if (this.reser) {
+    this.reservaService.updateReserva(this.reser.id, reserva).subscribe(() => {
+      updateHabitacionEstado(reserva.habitacion_id, false);
+      this.router.navigate(['/reserva']);
+    });
+  } else {
+    this.reservaService.createReserva(reserva).subscribe(() => {
+      updateHabitacionEstado(reserva.habitacion_id, false);
+      this.router.navigate(['/reserva']);
+      alert('Reserva creada con éxito');
+    });
   }
 }
 
@@ -111,3 +139,4 @@ constructor() {
 
 
 
+}
